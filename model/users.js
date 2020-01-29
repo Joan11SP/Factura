@@ -10,7 +10,7 @@ var usersSchemas = new Schemas({
   email: { type: Array, trim: true },
   phones: { type: Array, trim: true },
   direction: { type: String, trim: true },
-  creation_date: { type: Date, trim: true },
+  creation_date: { type: Date, trim: true},
   update_date: { type: Date, trim: true },
   status: { type: Boolean, trim: true,default:true },
 });

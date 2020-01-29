@@ -4,7 +4,8 @@ var users = require('../model/users'),
     validar = require('../utilities/utilities');
 
 router.post('/', (req, res) => {
-    users.find({ identification: body.identification }, (err, docs) => {
+    var body = req.body;
+    users.find({status:{$in:[true]}}, (err, docs) => {
         if (err) {
             console.error(err);
             throw err;
@@ -27,7 +28,6 @@ router.post('/', (req, res) => {
             res.status(200).json(docs)
         })
     }
-    res.json({ mensaje: 'Incorrect data' })
 }).post('/update', (req, res) => {
     var body = req.body;
     users.update({ identification: body.identification }, {
@@ -48,7 +48,9 @@ router.post('/', (req, res) => {
         res.status(200).json(docs)
     })
 }).post('/delete', (req, res) => {
-    users.remove({ identification: body.identification }, (err, docs) => {
+    var body = req.body;
+    users.update({ identification: body.identification },
+        {$set:{status:false}}, (err, docs) => {
         if (err) {
             console.error(err);
             throw err;
