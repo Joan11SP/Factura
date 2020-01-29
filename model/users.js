@@ -12,7 +12,7 @@ var usersSchemas = new Schemas({
   direction: { type: String, trim: true },
   creation_date: { type: Date, trim: true},
   update_date: { type: Date, trim: true },
-  status: { type: Boolean, trim: true,default:true },
+  status: { type:String, trim: true,default:"activo" },
 });
 
 var users = mongoose.model('users', usersSchemas);

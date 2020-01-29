@@ -4,21 +4,24 @@ var users = require('../model/users'),
     validar = require('../utilities/utilities');
 
 router.post('/', (req, res) => {
-    var body = req.body;
-    users.find({status:{$in:[true]}}, (err, docs) => {
+    users.find({status:{$in:["activo"]}}, (err, docs) => {
         if (err) {
             console.error(err);
             throw err;
         }
         res.status(200).json(docs)
     })
-}).post('/create', (req, res) => {
+}).post('/create_account', (req, res) => {
     var body = req.body;
-    if (validar.identification(body.identification) && validar.email(body.email) === true) {
+    if (validar(body.identification,body.email) === true) {
         users.insertMany({
             identification: body.identification,
             email: body.email,
-            password: body.password,
+            names: body.names,
+            type_document: body.type_document,
+            reason_social: body.reason_social,
+            phones: body.phones,
+            direction: body.direction,
             creation_date: Date.now()
         }, (err, docs) => {
             if (err) {
@@ -28,8 +31,9 @@ router.post('/', (req, res) => {
             res.status(200).json(docs)
         })
     }
-}).post('/update', (req, res) => {
+}).post('/update_account', (req, res) => {
     var body = req.body;
+
     users.update({ identification: body.identification }, {
         $set: {
             names: body.names,
@@ -47,10 +51,10 @@ router.post('/', (req, res) => {
         }
         res.status(200).json(docs)
     })
-}).post('/delete', (req, res) => {
+}).post('/delete_account', (req, res) => {
     var body = req.body;
     users.update({ identification: body.identification },
-        {$set:{status:false}}, (err, docs) => {
+        {$set:{status:"inactivo"}}, (err, docs) => {
         if (err) {
             console.error(err);
             throw err;
