@@ -34,13 +34,14 @@ router.post('/', (req, res) => {
 }).post('/update_account', (req, res) => {
     var body = req.body;
 
-    users.update({ identification: body.identification }, {
+    users.findOneAndUpdate({ identification: body.identification }, {
         $set: {
             names: body.names,
             type_document: body.type_document,
             reason_social: body.reason_social,
             email: body.email,
             phones: body.phones,
+            password:body.password,
             direction: body.direction,
             update_date: Date.now()
         }
@@ -61,6 +62,17 @@ router.post('/', (req, res) => {
         }
         res.status(200).json(docs)
     })
+}).post('/set_password',(req,res)=>{
+    var body = req.body;
+    users.update({ identification: body.identification },
+        {$set:{password:body.password}}, (err, docs) => {
+        if (err) {
+            console.error(err);
+            throw err;
+        }
+        res.status(200).json(docs)
+    })
 })
+
 
 module.exports = router

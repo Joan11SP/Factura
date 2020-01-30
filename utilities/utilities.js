@@ -24,6 +24,7 @@ const cedula = (cad) => {
             return false;
         }
     }
+
 }
 
 const email = (valor) => {
@@ -35,22 +36,28 @@ const email = (valor) => {
         return false;
     }
 }
-function ruc(number) {
+const ruc = (number) => {
+    var dto = number.length;
     var valor;
+    var acu = 0;
     if (number == "") {
-        return false;
+        return false
     }
     else {
-            valor = number.substring(10,13);
-            if ( valor == 001) {                
-                return true;
-            }else{
-                console.log("no es ruc")
+        for (var i = 0; i < dto; i++) {
+            valor = number.substring(i, i + 1);
+            if (valor == 0 || valor == 1 || valor == 2 || valor == 3 || valor == 4 || valor == 5 || valor == 6 || valor == 7 || valor == 8 || valor == 9) {
+                acu = acu + 1;
             }
-        
-        if (number.substring(0, 2) > 24) {
-                console.log("fuera del numero de provincias")
-                return false;            
+        }
+        if (acu == dto) {
+            while (number.substring(10, 13) == 001) {
+                return true;
+            }
+            while (number.substring(0, 2) > 24) {
+                console.log('Los dos primeros dígitos no pueden ser mayores a 24.');
+                return false;
+            }
         }
     }
 }
