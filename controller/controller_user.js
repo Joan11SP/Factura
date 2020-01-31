@@ -4,7 +4,7 @@ var users = require('../model/users'),
     validar = require('../utilities/utilities');
 
 router.post('/', (req, res) => {
-    users.find({ names: req.body.names, status: { $in: ["activo"] } }, (err, docs) => {
+    users.find({ identification: req.body.identification, status: { $in: ["activo"] } }, (err, docs) => {
         if (err) {
             console.error(err);
             throw err;

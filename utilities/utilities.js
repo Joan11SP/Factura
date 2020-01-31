@@ -62,8 +62,7 @@ const ruc = (number) => {
     }
 }
 const validation = (ide, mail) => {
-    if ((cedula(ide) || ruc(ide)) && email(mail) === true) {
-        
+    if ((cedula(ide) || ruc(ide)) && email(mail) === true) {        
         return true;
     }
     console.log('Incorrecto')
