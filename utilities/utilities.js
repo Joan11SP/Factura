@@ -63,8 +63,10 @@ const ruc = (number) => {
 }
 const validation = (ide, mail) => {
     if ((cedula(ide) || ruc(ide)) && email(mail) === true) {
+        
         return true;
     }
+    console.log('Incorrecto')
     return false;
 }
 module.exports = validation;

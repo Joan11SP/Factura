@@ -4,7 +4,7 @@ var users = require('../model/users'),
     validar = require('../utilities/utilities');
 
 router.post('/', (req, res) => {
-    users.find({status:{$in:["activo"]}}, (err, docs) => {
+    users.find({ names: req.body.names, status: { $in: ["activo"] } }, (err, docs) => {
         if (err) {
             console.error(err);
             throw err;
@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
     })
 }).post('/create_account', (req, res) => {
     var body = req.body;
-    if (validar(body.identification,body.email) === true) {
+    if (validar(body.identification, body.email) === true) {
         users.insertMany({
             identification: body.identification,
             email: body.email,
@@ -33,45 +33,46 @@ router.post('/', (req, res) => {
     }
 }).post('/update_account', (req, res) => {
     var body = req.body;
-
-    users.findOneAndUpdate({ identification: body.identification }, {
-        $set: {
-            names: body.names,
-            type_document: body.type_document,
-            reason_social: body.reason_social,
-            email: body.email,
-            phones: body.phones,
-            password:body.password,
-            direction: body.direction,
-            update_date: Date.now()
-        }
-    }, (err, docs) => {
-        if (err) {
-            console.error(err);
-            throw err;
-        }
-        res.status(200).json(docs)
-    })
+    if (validar(body.identification === true) ) {
+        users.findOneAndUpdate({ identification: body.identification }, {
+            $set: {
+                names: body.names,
+                type_document: body.type_document,
+                reason_social: body.reason_social,
+                email: body.email,
+                phones: body.phones,
+                password: body.password,
+                direction: body.direction,
+                update_date: Date.now()
+            }
+        }, (err, docs) => {
+            if (err) {
+                console.error(err);
+                throw err;
+            }
+            res.status(200).json(docs)
+        })
+    }
 }).post('/delete_account', (req, res) => {
     var body = req.body;
     users.update({ identification: body.identification },
-        {$set:{status:"inactivo"}}, (err, docs) => {
-        if (err) {
-            console.error(err);
-            throw err;
-        }
-        res.status(200).json(docs)
-    })
-}).post('/set_password',(req,res)=>{
+        { $set: { status: "inactivo" } }, (err, docs) => {
+            if (err) {
+                console.error(err);
+                throw err;
+            }
+            res.status(200).json(docs)
+        })
+}).post('/set_password', (req, res) => {
     var body = req.body;
     users.update({ identification: body.identification },
-        {$set:{password:body.password}}, (err, docs) => {
-        if (err) {
-            console.error(err);
-            throw err;
-        }
-        res.status(200).json(docs)
-    })
+        { $set: { password: body.password } }, (err, docs) => {
+            if (err) {
+                console.error(err);
+                throw err;
+            }
+            res.status(200).json(docs)
+        })
 })
 
 
