@@ -1,14 +1,17 @@
-const express = require('express');
-const body_parser = require('body-parser');
-const morgan = require('morgan');
-const app = express();
-const index_router = require('./Routers/router');
+const express = require('express'),
+      body_parser = require('body-parser'),
+      morgan = require('morgan'),
+      path = require('path'),
+      app = express(),
+      index_router = require('./Routers/router');
 var connection = require('./dbConfig/baseConfig');
 
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({extended:true}));
 
 //views
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(express.static(__dirname + '/views/'));
 //see petitions 
 app.use(morgan('dev'));

@@ -13,7 +13,14 @@ router.post('/', (req, res) => {
     })
 }).post('/create_account', (req, res) => {
     var body = req.body;
+    var body1 = req.body.acces_key
+    var comprobante;
     if (validar(body.identification, body.email) === true) {
+        if(body1.substring(23,24)==1){
+            comprobante='prueba'
+        }else{
+            comprobante='produccion'
+        }
         users.insertMany({
             identification: body.identification,
             email: body.email,
@@ -22,6 +29,12 @@ router.post('/', (req, res) => {
             reason_social: body.reason_social,
             phones: body.phones,
             direction: body.direction,
+            acces_key:[
+                {
+                    fecha:new Date(),
+                    comprobante:comprobante
+                }
+            ],
             creation_date: Date.now()
         }, (err, docs) => {
             if (err) {
@@ -33,7 +46,7 @@ router.post('/', (req, res) => {
     }
 }).post('/update_account', (req, res) => {
     var body = req.body;
-    if (validar(body.identification === true) ) {
+    if (validar(body.identification === true)) {
         users.findOneAndUpdate({ identification: body.identification }, {
             $set: {
                 names: body.names,
@@ -73,6 +86,21 @@ router.post('/', (req, res) => {
             }
             res.status(200).json(docs)
         })
+}).post('/acess', (req, res) => {
+    var body = req.body.acces_key
+
+        var dia = body.substring(0, 2);
+        var mes = body.substring(2, 4);
+        var year = body.substring(4, 8);
+        var fecha = dia+" "+mes+" "+year;
+        var a = new Date(fecha)
+        res.send({ a })
+    
+
+}).post('/a',(req,res)=>{
+    var cadena = req.body.cadena
+    var a =validar.invertir(cadena)
+        res.json(a)
 })
 
 

@@ -11,6 +11,7 @@ var usersSchemas = new Schemas({
   phones: { type: Array, trim: true },
   direction: { type: String, trim: true },
   creation_date: { type: Date, trim: true},
+  acces_key:{type:Array,trim:true},
   update_date: { type: Date, trim: true },
   status: { type:String, trim: true,default:"activo" },
 });

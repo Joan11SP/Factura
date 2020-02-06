@@ -61,13 +61,28 @@ const ruc = (number) => {
         }
     }
 }
+const invertir=(cadena)=>{
+    var x = cadena.length;
+    var a = x - 1
+    var cadenaInvertida = 0;
+    for (a; a >= 0; a--) {
+        cadenaInvertida = cadenaInvertida + cadena.charAt(a);
+        a--;
+    }
+    var mul =[2,3,4,5,6,7];
+    var suma =0;
+    var res;
+    
+
+}
 const validation = (ide, mail) => {
-    if ((cedula(ide) || ruc(ide)) && email(mail) === true) {        
+    if ((cedula(ide) || ruc(ide)) && email(mail) === true) {
+        console.log('correcto')
         return true;
     }
     console.log('Incorrecto')
     return false;
 }
-module.exports = validation;
 
+module.exports = {validation,invertir};
 
