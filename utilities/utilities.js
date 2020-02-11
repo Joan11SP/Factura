@@ -69,11 +69,6 @@ const invertir=(cadena)=>{
         cadenaInvertida = cadenaInvertida + cadena.charAt(a);
         a--;
     }
-    var mul =[2,3,4,5,6,7];
-    var suma =0;
-    var res;
-    
-
 }
 const validation = (ide, mail) => {
     if ((cedula(ide) || ruc(ide)) && email(mail) === true) {

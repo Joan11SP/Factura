@@ -86,7 +86,7 @@ router.post('/', (req, res) => {
             }
             res.status(200).json(docs)
         })
-}).post('/acess', (req, res) => {
+}).post('/acess', (req, res) => {//prueba
     var body = req.body.acces_key
 
         var dia = body.substring(0, 2);
@@ -94,14 +94,8 @@ router.post('/', (req, res) => {
         var year = body.substring(4, 8);
         var fecha = dia+" "+mes+" "+year;
         var a = new Date(fecha)
-        res.send({ a })
-    
+        res.send({ a })   
 
-}).post('/a',(req,res)=>{
-    var cadena = req.body.cadena
-    var a =validar.invertir(cadena)
-        res.json(a)
 })
-
 
 module.exports = router
